@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Examify Demo Gallery</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: #eaf3ff;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(59,130,246,.45), transparent 380px),
+        radial-gradient(circle at 86% 15%, rgba(139,92,246,.42), transparent 440px),
+        linear-gradient(145deg,#061225 0%,#0b1f4d 50%,#33155f 100%);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    main { max-width: 1200px; margin: 0 auto; padding: 38px 22px 64px; }
+    .hero {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 28px;
+      align-items: center;
+      padding: 28px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 34px;
+      background: rgba(255,255,255,.10);
+      box-shadow: 0 24px 70px rgba(0,0,0,.24);
+    }
+    .hero img { width: 160px; height: 160px; object-fit: contain; filter: drop-shadow(0 12px 24px rgba(0,0,0,.28)); }
+    .eyebrow { display:inline-flex; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.12); color:#cfe0ff; font-weight:800; font-size:13px; margin-bottom:14px; }
+    h1 { margin:0 0 12px; font-size:56px; letter-spacing:-.045em; line-height:.95; }
+    p { margin:0; color:#cfe0ff; font-size:18px; line-height:1.55; }
+    .chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+    .chip { padding:9px 12px; border-radius:999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.16); color:white; font-weight:800; font-size:13px; }
+    .section-title { margin:34px 0 16px; font-size:30px; color:white; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .card { overflow:hidden; border:1px solid rgba(255,255,255,.18); border-radius:26px; background:rgba(255,255,255,.11); box-shadow:0 20px 48px rgba(0,0,0,.18); }
+    .card img { display:block; width:100%; height:220px; object-fit:cover; object-position:top center; background:white; }
+    .card.tall img { height:300px; object-fit:contain; background:rgba(255,255,255,.06); padding:14px; }
+    .card div { padding:18px; }
+    h2 { margin:0 0 8px; color:white; font-size:22px; }
+    .flow { margin-top:28px; padding:24px; border-radius:28px; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); }
+    .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:18px; }
+    .step { padding:18px; border-radius:18px; background:linear-gradient(135deg,rgba(59,130,246,.82),rgba(99,102,241,.78)); font-weight:900; color:white; min-height:96px; }
+    .step span { display:block; opacity:.8; font-size:13px; margin-top:8px; line-height:1.35; }
+    footer { margin-top:34px; color:#b9c8e6; text-align:center; font-weight:700; }
+    @media (max-width:900px){ .hero,.grid,.steps{grid-template-columns:1fr;} h1{font-size:42px;} .hero img{width:120px;height:120px;} }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <img src="assets/examify-logo.png" alt="Examify logo" />
+      <div>
+        <div class="eyebrow">Graduation Project Demo Gallery</div>
+        <h1>Examify</h1>
+        <p>A quick visual walkthrough of the online exam platform: platform overview, student access, exam session, and the end-to-end assessment workflow.</p>
+        <div class="chips">
+          <span class="chip">Online Exams</span>
+          <span class="chip">Autosave</span>
+          <span class="chip">Live Activity</span>
+          <span class="chip">Hybrid Grading</span>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="section-title">Application Screens</h2>
+    <section class="grid">
+      <article class="card"><img src="screenshots/welcome-en.png" alt="Platform overview" /><div><h2>Platform Overview</h2><p>Role entry points, product summary, and admin preview.</p></div></article>
+      <article class="card"><img src="screenshots/student-login-en.png" alt="Student login" /><div><h2>Student Access</h2><p>PIN-based student login for assigned exams.</p></div></article>
+      <article class="card"><img src="screenshots/admin-login-en.png" alt="Admin login" /><div><h2>Admin Access</h2><p>Entry point for managing exams, students, and graders.</p></div></article>
+      <article class="card"><img src="screenshots/exam-screen-en.png" alt="Exam session" /><div><h2>Exam Session</h2><p>Timer, navigation, answer selection, exam tools, and autosave status.</p></div></article>
+      <article class="card"><img src="assets/examify-hero-illustration.png" alt="Examify illustration" /><div><h2>Exam and Grading Flow</h2><p>Student takes the exam while submissions are routed for grading.</p></div></article>
+      <article class="card tall"><img src="assets/poster-preview.png" alt="Poster preview" /><div><h2>Poster Preview</h2><p>The A2 project poster linked by the QR code.</p></div></article>
+    </section>
+
+    <section class="flow">
+      <h2>Examify Workflow</h2>
+      <p>Examify connects preparation, delivery, monitoring, and grading in a single digital process.</p>
+      <div class="steps">
+        <div class="step">1. Prepare<span>Create scenario-based exams and assignments.</span></div>
+        <div class="step">2. Deliver<span>Students enter with identity and PIN control.</span></div>
+        <div class="step">3. Monitor<span>Time, answers, and activity events are tracked.</span></div>
+        <div class="step">4. Evaluate<span>Automatic grading and human review work together.</span></div>
+      </div>
+    </section>
+    <footer>Examify Graduation Project · Işık University Computer Science and Engineering</footer>
+  </main>
+</body>
+</html>
