@@ -1,3 +1,5 @@
 # Examify Demo Gallery
 
-Static demo gallery for the Examify graduation project poster QR code.
+Examify graduation project için hazırlanan demo galeri sayfası.
+
+Sayfa GitHub Pages üzerinde yayınlanır ve posterdeki QR koddan erişilir.
