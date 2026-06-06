@@ -15,7 +15,7 @@
         linear-gradient(145deg,#061225 0%,#0b1f4d 50%,#33155f 100%);
       font-family: Arial, Helvetica, sans-serif;
     }
-    main { max-width: 1200px; margin: 0 auto; padding: 38px 22px 64px; }
+    main { max-width: 1280px; margin: 0 auto; padding: 38px 22px 64px; }
     .hero {
       display: grid;
       grid-template-columns: 160px 1fr;
@@ -36,7 +36,7 @@
     .section-title { margin:34px 0 16px; font-size:30px; color:white; }
     .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
     .card { overflow:hidden; border:1px solid rgba(255,255,255,.18); border-radius:26px; background:rgba(255,255,255,.11); box-shadow:0 20px 48px rgba(0,0,0,.18); }
-    .card img { display:block; width:100%; height:220px; object-fit:cover; object-position:top center; background:white; }
+    .card img { display:block; width:100%; height:230px; object-fit:contain; object-position:top center; background:white; padding:8px; }
     .card.tall img { height:300px; object-fit:contain; background:rgba(255,255,255,.06); padding:14px; }
     .card div { padding:18px; }
     h2 { margin:0 0 8px; color:white; font-size:22px; }
@@ -55,7 +55,7 @@
       <div>
         <div class="eyebrow">Graduation Project Demo Gallery</div>
         <h1>Examify</h1>
-        <p>A quick visual walkthrough of the online exam platform: platform overview, student access, exam session, and the end-to-end assessment workflow.</p>
+        <p>A visual walkthrough of the online exam platform: admin setup, student exam delivery, live monitoring, activity logs, grader review, and feedback screens.</p>
         <div class="chips">
           <span class="chip">Online Exams</span>
           <span class="chip">Autosave</span>
@@ -67,10 +67,29 @@
 
     <h2 class="section-title">Application Screens</h2>
     <section class="grid">
-      <article class="card"><img src="screenshots/welcome-en.png" alt="Platform overview" /><div><h2>Platform Overview</h2><p>Role entry points, product summary, and admin preview.</p></div></article>
-      <article class="card"><img src="screenshots/student-login-en.png" alt="Student login" /><div><h2>Student Access</h2><p>PIN-based student login for assigned exams.</p></div></article>
-      <article class="card"><img src="screenshots/admin-login-en.png" alt="Admin login" /><div><h2>Admin Access</h2><p>Entry point for managing exams, students, and graders.</p></div></article>
-      <article class="card"><img src="screenshots/exam-screen-en.png" alt="Exam session" /><div><h2>Exam Session</h2><p>Timer, navigation, answer selection, exam tools, and autosave status.</p></div></article>
+      <article class="card"><img src="screenshots/new/01-platform-overview.jpg" alt="Examify platform overview" /><div><h2>Platform Overview</h2><p>Landing page with role entry points and platform summary.</p></div></article>
+      <article class="card"><img src="screenshots/new/02-admin-dashboard.jpg" alt="Examify admin dashboard" /><div><h2>Admin Dashboard</h2><p>Exam counts, active sessions, quick setup steps, and navigation.</p></div></article>
+      <article class="card"><img src="screenshots/new/03-exam-management.jpg" alt="Examify exam management" /><div><h2>Exam Management</h2><p>Exam list with status, duration, assignment, and action controls.</p></div></article>
+      <article class="card"><img src="screenshots/new/04-student-login.jpg" alt="Examify student login" /><div><h2>Student Login</h2><p>PIN-based student access before entering assigned exams.</p></div></article>
+      <article class="card"><img src="screenshots/new/05-grader-login.jpg" alt="Examify grader login" /><div><h2>Grader Login</h2><p>Dedicated login flow for evaluators and grading staff.</p></div></article>
+      <article class="card"><img src="screenshots/new/06-question-management.jpg" alt="Examify question management" /><div><h2>Question Management</h2><p>Scenario questions, answer choices, point values, and tools.</p></div></article>
+      <article class="card"><img src="screenshots/new/07-new-question-modal.jpg" alt="Examify new question modal" /><div><h2>New Question Modal</h2><p>Multiple question types, image upload, points, and available tools.</p></div></article>
+      <article class="card"><img src="screenshots/new/08-student-management.jpg" alt="Examify student management" /><div><h2>Student Management</h2><p>Student assignment, import/export, PINs, filters, and status tracking.</p></div></article>
+      <article class="card"><img src="screenshots/new/09-grader-management.jpg" alt="Examify grader management" /><div><h2>Grader Management</h2><p>Evaluator accounts, assigned exams, pending answers, and progress.</p></div></article>
+      <article class="card"><img src="screenshots/new/10-live-monitoring.jpg" alt="Examify live monitoring" /><div><h2>Live Monitoring</h2><p>Active exam cards for watching student progress in real time.</p></div></article>
+      <article class="card"><img src="screenshots/new/11-activity-logs.jpg" alt="Examify activity logs" /><div><h2>Activity Logs</h2><p>Traceable exam events, completion status, and last activity records.</p></div></article>
+      <article class="card"><img src="screenshots/new/12-feedback.jpg" alt="Examify feedback" /><div><h2>Feedback</h2><p>Student ratings and comments collected after exam sessions.</p></div></article>
+      <article class="card"><img src="screenshots/new/13-grader-dashboard.jpg" alt="Examify grader dashboard" /><div><h2>Grader Dashboard</h2><p>Assigned exams, pending answers, completed work, and grading progress.</p></div></article>
+      <article class="card"><img src="screenshots/new/14-grading-assignment.jpg" alt="Examify grading assignment" /><div><h2>Grading Assignment</h2><p>Student answer status, progress, and review actions for each submission.</p></div></article>
+      <article class="card"><img src="screenshots/new/15-manual-grading-review.jpg" alt="Examify manual grading review" /><div><h2>Manual Review</h2><p>Side-by-side student answer and answer key with manual scoring.</p></div></article>
+      <article class="card"><img src="screenshots/new/16-interactive-exam-mosaic.jpg" alt="Examify interactive mosaic exam" /><div><h2>Interactive Exam</h2><p>Scenario-based exam screen with interactive mosaic question tools.</p></div></article>
+      <article class="card"><img src="screenshots/new/17-drawing-question.jpg" alt="Examify drawing question" /><div><h2>Drawing Question</h2><p>Drawing interface with ruler, colors, eraser, and submission controls.</p></div></article>
+      <article class="card"><img src="screenshots/new/18-student-dashboard.jpg" alt="Examify student dashboard" /><div><h2>Student Dashboard</h2><p>Pending, in-progress, and completed exams in the student view.</p></div></article>
+      <article class="card"><img src="screenshots/new/19-live-monitoring-detail.jpg" alt="Examify live monitoring detail" /><div><h2>Monitoring Detail</h2><p>Student-level live exam progress with answered questions and time left.</p></div></article>
+    </section>
+
+    <h2 class="section-title">Project Artifacts</h2>
+    <section class="grid">
       <article class="card"><img src="assets/examify-hero-illustration.png" alt="Examify illustration" /><div><h2>Exam and Grading Flow</h2><p>Student takes the exam while submissions are routed for grading.</p></div></article>
       <article class="card tall"><img src="assets/poster-preview.png" alt="Poster preview" /><div><h2>Poster Preview</h2><p>The A2 project poster linked by the QR code.</p></div></article>
     </section>
