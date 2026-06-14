@@ -36,7 +36,7 @@
     .section-title { margin:34px 0 16px; font-size:30px; color:white; }
     .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
     .card { overflow:hidden; border:1px solid rgba(255,255,255,.18); border-radius:26px; background:rgba(255,255,255,.11); box-shadow:0 20px 48px rgba(0,0,0,.18); }
-    .card img { display:block; width:100%; height:230px; object-fit:contain; object-position:top center; background:white; padding:8px; cursor:zoom-in; }
+    .card img { display:block; width:100%; height:230px; object-fit:contain; object-position:top center; background:white; padding:8px; }
     .card.tall img { height:300px; object-fit:contain; background:rgba(255,255,255,.06); padding:14px; }
     .card div { padding:18px; }
     h2 { margin:0 0 8px; color:white; font-size:22px; }
@@ -45,17 +45,26 @@
     .lightbox-panel { width:min(1180px,96vw); max-height:92vh; border:1px solid rgba(255,255,255,.18); border-radius:24px; background:#0f172a; box-shadow:0 28px 90px rgba(0,0,0,.45); overflow:hidden; }
     .lightbox-top { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 18px; background:rgba(255,255,255,.08); }
     .lightbox-title { color:white; font-size:18px; font-weight:900; }
-    .lightbox-close { border:0; border-radius:999px; padding:9px 13px; color:white; background:rgba(255,255,255,.14); font-weight:900; cursor:pointer; }
+    .lightbox-close { border:0; border-radius:999px; padding:9px 13px; color:white; background:rgba(255,255,255,.14); font-weight:900; }
     .lightbox img { display:block; width:100%; max-height:calc(92vh - 58px); object-fit:contain; background:white; }
+    .language-switch { position:fixed; top:18px; right:18px; z-index:10; border:1px solid rgba(255,255,255,.22); border-radius:999px; padding:10px 14px; color:white; background:rgba(15,23,42,.72); backdrop-filter:blur(8px); font-weight:900; }
+    .language-modal { position:fixed; inset:0; z-index:30; display:none; align-items:center; justify-content:center; padding:22px; background:rgba(3,7,18,.86); backdrop-filter:blur(10px); }
+    .language-modal.open { display:flex; }
+    .language-panel { width:min(520px,94vw); padding:28px; border:1px solid rgba(255,255,255,.20); border-radius:28px; background:linear-gradient(135deg,rgba(30,64,175,.95),rgba(88,28,135,.95)); box-shadow:0 28px 90px rgba(0,0,0,.45); text-align:center; }
+    .language-panel h2 { display:block; margin:0 0 12px; font-size:30px; }
+    .language-panel p { margin-bottom:22px; color:#dbeafe; }
+    .language-actions { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .language-option { border:1px solid rgba(255,255,255,.24); border-radius:18px; padding:16px; color:white; background:rgba(255,255,255,.12); font-size:18px; font-weight:900; }
     .flow { margin-top:28px; padding:24px; border-radius:28px; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18); }
     .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:18px; }
     .step { padding:18px; border-radius:18px; background:linear-gradient(135deg,rgba(59,130,246,.82),rgba(99,102,241,.78)); font-weight:900; color:white; min-height:96px; }
     .step span { display:block; opacity:.8; font-size:13px; margin-top:8px; line-height:1.35; }
     footer { margin-top:34px; color:#b9c8e6; text-align:center; font-weight:700; }
-    @media (max-width:900px){ .hero,.grid,.steps{grid-template-columns:1fr;} h1{font-size:42px;} .hero img{width:120px;height:120px;} .lightbox{padding:12px;} }
+    @media (max-width:900px){ .hero,.grid,.steps,.language-actions{grid-template-columns:1fr;} h1{font-size:42px;} .hero img{width:120px;height:120px;} .lightbox{padding:12px;} }
   </style>
 </head>
 <body>
+  <button class="language-switch" type="button" id="language-switch">Language / Dil</button>
   <main>
     <section class="hero">
       <img src="assets/examify-logo.png" alt="Examify logo" />
@@ -113,6 +122,16 @@
     </section>
     <footer>Examify Graduation Project · Işık University Computer Science and Engineering</footer>
   </main>
+  <div class="language-modal" id="language-modal" aria-hidden="true" role="dialog" aria-label="Language selection">
+    <div class="language-panel">
+      <h2 id="language-title">Choose Language / Dil Seçin</h2>
+      <p id="language-text">Select the language for the demo gallery.</p>
+      <div class="language-actions">
+        <button class="language-option" type="button" data-language="en">English</button>
+        <button class="language-option" type="button" data-language="tr">Türkçe</button>
+      </div>
+    </div>
+  </div>
   <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Screenshot preview">
     <div class="lightbox-panel">
       <div class="lightbox-top">
@@ -123,10 +142,140 @@
     </div>
   </div>
   <script>
+    const content = {
+      en: {
+        htmlLang: "en",
+        switchLabel: "Language / Dil",
+        languageTitle: "Choose Language",
+        languageText: "Select the language for the demo gallery.",
+        close: "Close",
+        eyebrow: "Graduation Project Demo Gallery",
+        hero: "A visual walkthrough of the online exam platform: admin setup, student exam delivery, live monitoring, activity logs, grader review, and feedback screens.",
+        chips: ["Online Exams", "Autosave", "Live Activity", "Hybrid Grading"],
+        sectionTitles: ["Application Screens", "Project Artifacts"],
+        cards: [
+          ["Platform Overview", "Landing page with role entry points and platform summary."],
+          ["Admin Dashboard", "Exam counts, active sessions, quick setup steps, and navigation."],
+          ["Exam Management", "Exam list with status, duration, assignment, and action controls."],
+          ["Student Login", "PIN-based student access before entering assigned exams."],
+          ["Grader Login", "Dedicated login flow for evaluators and grading staff."],
+          ["Question Management", "Scenario questions, answer choices, point values, and tools."],
+          ["New Question Modal", "Multiple question types, image upload, points, and available tools."],
+          ["Student Management", "Student assignment, import/export, PINs, filters, and status tracking."],
+          ["Grader Management", "Evaluator accounts, assigned exams, pending answers, and progress."],
+          ["Live Monitoring", "Active exam cards for watching student progress in real time."],
+          ["Activity Logs", "Traceable exam events, completion status, and last activity records."],
+          ["Feedback", "Student ratings and comments collected after exam sessions."],
+          ["Grader Dashboard", "Assigned exams, pending answers, completed work, and grading progress."],
+          ["Grading Assignment", "Student answer status, progress, and review actions for each submission."],
+          ["Manual Review", "Side-by-side student answer and answer key with manual scoring."],
+          ["Interactive Exam", "Scenario-based exam screen with interactive mosaic question tools."],
+          ["Drawing Question", "Drawing interface with ruler, colors, eraser, and submission controls."],
+          ["Student Dashboard", "Pending, in-progress, and completed exams in the student view."],
+          ["Monitoring Detail", "Student-level live exam progress with answered questions and time left."],
+          ["Exam and Grading Flow", "Student takes the exam while submissions are routed for grading."],
+          ["Poster Preview", "The A2 project poster linked by the QR code."]
+        ],
+        flowTitle: "Examify Workflow",
+        flowText: "Examify connects preparation, delivery, monitoring, and grading in a single digital process.",
+        steps: [
+          ["1. Prepare", "Create scenario-based exams and assignments."],
+          ["2. Deliver", "Students enter with identity and PIN control."],
+          ["3. Monitor", "Time, answers, and activity events are tracked."],
+          ["4. Evaluate", "Automatic grading and human review work together."]
+        ],
+        footer: "Examify Graduation Project - Işık University Computer Science and Engineering"
+      },
+      tr: {
+        htmlLang: "tr",
+        switchLabel: "Dil Seçimi",
+        languageTitle: "Dil Seçin",
+        languageText: "Demo galeriyi hangi dilde görmek istediğinizi seçin.",
+        close: "Kapat",
+        eyebrow: "Bitirme Projesi Demo Galerisi",
+        hero: "Çevrim içi sınav platformunun görsel özeti: yönetici kurulumu, öğrenci sınav akışı, canlı izleme, etkinlik kayıtları, puanlayıcı incelemesi ve geri bildirim ekranları.",
+        chips: ["Çevrim İçi Sınavlar", "Otomatik Kayıt", "Canlı Etkinlik", "Hibrit Puanlama"],
+        sectionTitles: ["Uygulama Ekranları", "Proje Çıktıları"],
+        cards: [
+          ["Platform Özeti", "Rol girişleri ve platformun genel işleyişini gösteren açılış ekranı."],
+          ["Yönetici Paneli", "Sınav sayıları, aktif oturumlar, hızlı kurulum adımları ve yönetim navigasyonu."],
+          ["Sınav Yönetimi", "Sınav durumu, süre, atama ve işlem kontrollerini içeren liste ekranı."],
+          ["Öğrenci Girişi", "Atanmış sınavlara girmek için PIN tabanlı öğrenci erişimi."],
+          ["Puanlayıcı Girişi", "Değerlendiriciler ve puanlama ekibi için ayrı giriş akışı."],
+          ["Soru Yönetimi", "Senaryo soruları, cevap seçenekleri, puan değerleri ve araçlar."],
+          ["Yeni Soru Penceresi", "Farklı soru tipleri, görsel yükleme, puan ve kullanılabilir araç seçimleri."],
+          ["Öğrenci Yönetimi", "Öğrenci atama, içe/dışa aktarma, PIN, filtre ve durum takibi."],
+          ["Puanlayıcı Yönetimi", "Puanlayıcı hesapları, atanmış sınavlar, bekleyen cevaplar ve ilerleme."],
+          ["Canlı İzleme", "Aktif sınavlarda öğrenci ilerlemesini gerçek zamanlı izleme kartları."],
+          ["Etkinlik Kayıtları", "Sınav olayları, tamamlanma durumu ve son etkinlik bilgileri."],
+          ["Geri Bildirim", "Sınav sonrası öğrenci puanları ve yorumları."],
+          ["Puanlayıcı Paneli", "Atanmış sınavlar, bekleyen cevaplar, tamamlanan işler ve puanlama ilerlemesi."],
+          ["Puanlama Ataması", "Her teslim için öğrenci cevap durumu, ilerleme ve inceleme işlemleri."],
+          ["Manuel İnceleme", "Öğrenci cevabı ve cevap anahtarını yan yana göstererek manuel puanlama."],
+          ["Etkileşimli Sınav", "Mozaik soru araçlarıyla senaryo tabanlı sınav ekranı."],
+          ["Çizim Sorusu", "Cetvel, renkler, silgi ve gönderim kontrolleri olan çizim arayüzü."],
+          ["Öğrenci Paneli", "Bekleyen, devam eden ve tamamlanan sınavların öğrenci görünümü."],
+          ["İzleme Detayı", "Öğrenci bazlı canlı sınav ilerlemesi, cevaplanan sorular ve kalan süre."],
+          ["Sınav ve Puanlama Akışı", "Öğrenci sınavı tamamlarken cevaplar puanlama sürecine aktarılır."],
+          ["Poster Önizlemesi", "QR kod ile bağlantılı A2 proje posteri."]
+        ],
+        flowTitle: "Examify İş Akışı",
+        flowText: "Examify; hazırlık, uygulama, izleme ve puanlama adımlarını tek bir dijital süreçte birleştirir.",
+        steps: [
+          ["1. Hazırla", "Senaryo tabanlı sınavlar ve atamalar oluşturulur."],
+          ["2. Uygula", "Öğrenciler kimlik ve PIN kontrolü ile giriş yapar."],
+          ["3. İzle", "Süre, cevaplar ve etkinlik hareketleri takip edilir."],
+          ["4. Değerlendir", "Otomatik puanlama ve insan incelemesi birlikte çalışır."]
+        ],
+        footer: "Examify Bitirme Projesi - Işık Üniversitesi Bilgisayar Mühendisliği"
+      }
+    };
+
+    const languageModal = document.getElementById("language-modal");
+    const languageSwitch = document.getElementById("language-switch");
+    const closeButton = document.getElementById("lightbox-close");
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = document.getElementById("lightbox-image");
     const lightboxTitle = document.getElementById("lightbox-title");
-    const closeButton = document.getElementById("lightbox-close");
+    const savedLanguage = localStorage.getItem("examify-gallery-language");
+    let currentLanguage = savedLanguage || "en";
+
+    function applyLanguage(language) {
+      currentLanguage = language;
+      localStorage.setItem("examify-gallery-language", language);
+      const text = content[language];
+      document.documentElement.lang = text.htmlLang;
+      languageSwitch.textContent = text.switchLabel;
+      document.getElementById("language-title").textContent = text.languageTitle;
+      document.getElementById("language-text").textContent = text.languageText;
+      document.querySelector(".eyebrow").textContent = text.eyebrow;
+      document.querySelector(".hero p").textContent = text.hero;
+      document.querySelectorAll(".chip").forEach((item, index) => item.textContent = text.chips[index]);
+      document.querySelectorAll(".section-title").forEach((item, index) => item.textContent = text.sectionTitles[index]);
+      document.querySelectorAll(".card").forEach((card, index) => {
+        const cardText = text.cards[index];
+        card.querySelector("h2").textContent = cardText[0];
+        card.querySelector("p").textContent = cardText[1];
+      });
+      document.querySelector(".flow h2").textContent = text.flowTitle;
+      document.querySelector(".flow > p").textContent = text.flowText;
+      document.querySelectorAll(".step").forEach((step, index) => {
+        step.innerHTML = `${text.steps[index][0]}<span>${text.steps[index][1]}</span>`;
+      });
+      closeButton.textContent = text.close;
+      closeButton.setAttribute("aria-label", text.close);
+      document.querySelector("footer").textContent = text.footer;
+    }
+
+    function openLanguageModal() {
+      languageModal.classList.add("open");
+      languageModal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeLanguageModal() {
+      languageModal.classList.remove("open");
+      languageModal.setAttribute("aria-hidden", "true");
+    }
 
     function closeLightbox() {
       lightbox.classList.remove("open");
@@ -134,6 +283,17 @@
       lightboxImage.src = "";
       lightboxImage.alt = "";
     }
+
+    document.querySelectorAll("[data-language]").forEach((button) => {
+      button.addEventListener("click", () => {
+        applyLanguage(button.dataset.language);
+        closeLanguageModal();
+      });
+    });
+
+    languageSwitch.addEventListener("click", openLanguageModal);
+    applyLanguage(currentLanguage);
+    if (!savedLanguage) openLanguageModal();
 
     document.querySelectorAll(".card img").forEach((image) => {
       image.tabIndex = 0;
@@ -160,7 +320,10 @@
       if (event.target === lightbox) closeLightbox();
     });
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && lightbox.classList.contains("open")) closeLightbox();
+      if (event.key === "Escape") {
+        if (lightbox.classList.contains("open")) closeLightbox();
+        if (languageModal.classList.contains("open")) closeLanguageModal();
+      }
     });
   </script>
 </body>
